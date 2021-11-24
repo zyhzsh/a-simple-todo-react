@@ -1,8 +1,8 @@
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 
 export const ToDoListContext = createContext()
 
-const ToDoListContextProvider = () => {
+const ToDoListContextProvider = (props) => {
     const [todos, setTodos] = useState(
         [
             {
@@ -32,7 +32,9 @@ const ToDoListContextProvider = () => {
             },
         ]
     )
-    return <div>Context ....</div>;
+    return <ToDoListContext.Provider value={{ todos }}>
+        {props.children}
+    </ToDoListContext.Provider>
 }
 
 export default ToDoListContextProvider
