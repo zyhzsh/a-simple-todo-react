@@ -14,7 +14,6 @@ const ToDoListContextProvider = (props) => {
             {
                 id: 2,
                 title: 'Buy shamboo',
-                descrtipion: '',
                 finished: false,
                 category: 'Limit'
             },
@@ -32,6 +31,8 @@ const ToDoListContextProvider = (props) => {
             },
         ]
     )
+    
+
     return <ToDoListContext.Provider value={{ todos }}>
         {props.children}
     </ToDoListContext.Provider>
