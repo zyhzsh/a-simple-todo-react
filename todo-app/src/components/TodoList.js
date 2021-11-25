@@ -61,7 +61,7 @@ overflow:auto;
   }
 
   @media (max-width: 768px) {
-    width: auto;
+   width: 340px;
   }
 
 `;
