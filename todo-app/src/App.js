@@ -9,16 +9,17 @@ const App = () => {
   return (
     <ToDoListContextProvider>
       <StyledToDoAppContainer>
-      <ToDoAppTitle />
-      <EditTodo />
-      <TodoForm />
-      <TodoList />
+        <ToDoAppTitle />
+        <TodoForm />
+        <TodoList />
       </StyledToDoAppContainer>
+      <EditTodo />
     </ToDoListContextProvider>
   )
 }
 
 const StyledToDoAppContainer = styled('div')`
+  background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
   width:auto;
   height: 100vh;
   display: flex;

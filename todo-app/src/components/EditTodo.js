@@ -1,8 +1,10 @@
-import React, { useContext, useState,useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { styled, Box } from '@mui/system';
 import TextField from '@mui/material/TextField';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 import { ToDoListContext } from '../context/ToDoListContext';
+import CheckIcon from '@mui/icons-material/Check';
+import IconButton from '@mui/material/IconButton';
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
   z-index: 1300;
@@ -28,7 +30,9 @@ const Backdrop = styled('div')`
 
 const style = {
     width: 400,
-    bgcolor: 'background.paper',
+   // background: "#aa4b6b",  /* fallback for old browsers */
+   // background: "-webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b)",  /* Chrome 10-25, Safari 5.1-6 */
+    background: "linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: '2px solid #000',
     p: 2,
     px: 4,
@@ -36,30 +40,29 @@ const style = {
 };
 
 const EditTodo = () => {
-    const { toggleEditModel, seletedTodo, openEditModel ,updateTodo} = useContext(ToDoListContext)
+    const { toggleEditModel, seletedTodo, openEditModel, updateTodo } = useContext(ToDoListContext)
     const onCloseHandler = () => {
         if (seletedTodo != null) { toggleEditModel(seletedTodo.id) }
     };
 
-    const [todoTitle, settodoTitle] = useState(seletedTodo!==null?seletedTodo.title:null)
+    const [todoTitle, settodoTitle] = useState(seletedTodo !== null ? seletedTodo.title : null)
 
 
-
-    const updateHandler=(e)=>{
+    const updateHandler = (e) => {
         e.preventDefault();
-        updateTodo(seletedTodo.id,todoTitle,seletedTodo.finished)
+        updateTodo(seletedTodo.id, todoTitle, seletedTodo.finished)
     }
 
     const userInputHandler = (e) => {
         settodoTitle(e.target.value)
     }
-    useEffect(()=>{
-        if(seletedTodo!==null){
+    useEffect(() => {
+        if (seletedTodo !== null) {
             settodoTitle(seletedTodo.title);
-        }else{
+        } else {
             settodoTitle("");
         }
-    },[seletedTodo])
+    }, [seletedTodo])
     return (
         <>
             {seletedTodo ? <StyledModal
@@ -71,14 +74,12 @@ const EditTodo = () => {
             >
                 <Box sx={style}>
                     <form>
-                        <TextField t autoFocus
-                            margin="dense"
-                            id="name"
-                            label="To Do"               
-                            fullWidth
+                        <TextField  autoFocus
+                            margin="dense"                
+                            fullWidth ="false"
                             onChange={userInputHandler}
                             variant="standard" value={todoTitle} />
-                        <button onClick={updateHandler}>Update</button>
+                        <IconButton onClick={updateHandler}><CheckIcon/></IconButton>
                     </form>
                 </Box>
             </StyledModal> : <></>}
