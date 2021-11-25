@@ -64,8 +64,6 @@ const ToDoListContextProvider = (props) => {
         setSeletedTodo(todo);
     }
 
-
-
     return <ToDoListContext.Provider value={{ todos, addTodo, removeTodo, clearTodo, updateTodo, toggleEditModel, seletedTodo, openEditModel }}>
         {props.children}
     </ToDoListContext.Provider>

@@ -16,8 +16,6 @@ const firebaseConfig = initializeApp({
 const db = getFirestore(firebaseConfig);
 
 
-
-
 // Add Todos 
 export const addTodoTodb = async (title) => {
     try {
