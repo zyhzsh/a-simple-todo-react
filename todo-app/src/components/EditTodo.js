@@ -75,6 +75,7 @@ const EditTodo = () => {
                 <Box sx={style}>
                     <form>
                         <TextField  autoFocus
+                            fullWidth
                             margin="dense"                
                             onChange={userInputHandler}
                             variant="standard" value={todoTitle} />
