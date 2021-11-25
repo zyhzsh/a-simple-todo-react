@@ -26,7 +26,6 @@ const TodoForm = () => {
             <TextField
                 autoFocus
                 margin="dense" 
-                fullWidth ="false"
                 variant="standard" 
                 onChange={inputchangeHandler}
                 value={userinput}

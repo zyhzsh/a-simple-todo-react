@@ -1,60 +1,72 @@
-import React, { createContext, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
+import React, { createContext, useState, useEffect } from 'react'
+// import { v4 as uuidv4 } from 'uuid';
+import { addTodoTodb, getTodoFromdb, deletedTodoById, deletedAllTodo, updateToDo } from '../firebase';
 export const ToDoListContext = createContext()
-
 const ToDoListContextProvider = (props) => {
-    const [openEditModel,setopenEditModel]=useState(false);
-    const [seletedTodo,setSeletedTodo]=useState(null);
-    const [todos, setTodos] = useState(
-        [
-            {
-                id: uuidv4(),
-                title: 'Read Book',
-                finished: false,
-            },
-            {
-                id: uuidv4(),
-                title: 'Buy shamboo',
-                finished: false,
-            },
-            {
-                id: uuidv4(),
-                title: 'Clean Room',
-                finished: false,
-            },
-            {
-                id: uuidv4(),
-                title: 'Build a to-do App',
-                finished: false,
-            },
-        ]
-    )
+    const [openEditModel, setopenEditModel] = useState(false);
+    const [seletedTodo, setSeletedTodo] = useState(null);
+    const [todos, setTodos] = useState([]);
 
-    const addTodo = (title) => {
-        setTodos([...todos, { title, id: uuidv4(), finished: false }])
+
+    useEffect(() => {
+        //Load Todos
+        async function LoadTodos() {
+            let listOfTdos = await getTodoFromdb();
+            setTodos(listOfTdos);
+        }
+        LoadTodos();
+    }, [])
+
+    //Functions ....
+
+    // Add To Do
+    const addTodo = async (title) => {
+        //add todo to database 
+        const todoid = await addTodoTodb(title);
+        //
+        if (todoid !== "") {
+            setTodos([...todos, {
+                id: todoid,
+                title: title,
+                finished: false
+            }])
+        }
     }
+
+    // Remove To Do 
     const removeTodo = (id) => {
         const oldTodoList = [...todos]
         const updatedTodoList = oldTodoList.filter((todo) => todo.id !== id);
+        deletedTodoById(id);
         setTodos(updatedTodoList);
     }
-    const clearTodo = () => {
+
+    // Clear To Do
+    const clearTodo = async () => {
+        await deletedAllTodo(todos);
         setTodos([]);
     }
-    const updateTodo = (id,title,finished) => {
-        const newTodos = todos.map(todo=>(todo.id===id?{id,title,finished}:todo));
-        console.log(newTodos);
-        setTodos(newTodos)
+
+    // Update To Do
+    const updateTodo = async (id, title, finished) => {
+        const newTodos = todos.map(todo => (todo.id === id ? { id, title, finished } : todo));
+        //update to database 
+        await updateToDo({ id, title, finished });
+        setTodos(newTodos);
     }
-   
-    const toggleEditModel = (id) =>{
+
+
+    const toggleEditModel = (id) => {
         console.log(id)
         //find edit todo 
-        const todo=todos.find(todo=>todo.id===id);
+        const todo = todos.find(todo => todo.id === id);
         setopenEditModel(!openEditModel)
         setSeletedTodo(todo);
     }
-    return <ToDoListContext.Provider value={{ todos, addTodo, removeTodo, clearTodo,updateTodo,toggleEditModel,seletedTodo,openEditModel }}>
+
+
+
+    return <ToDoListContext.Provider value={{ todos, addTodo, removeTodo, clearTodo, updateTodo, toggleEditModel, seletedTodo, openEditModel }}>
         {props.children}
     </ToDoListContext.Provider>
 }
