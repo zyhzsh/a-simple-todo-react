@@ -29,7 +29,7 @@ const Backdrop = styled('div')`
 `;
 
 const style = {
-    width: 400,
+    width: 280,
    // background: "#aa4b6b",  /* fallback for old browsers */
    // background: "-webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b)",  /* Chrome 10-25, Safari 5.1-6 */
     background: "linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -51,6 +51,7 @@ const EditTodo = () => {
     const updateHandler = (e) => {
         e.preventDefault();
         updateTodo(seletedTodo.id, todoTitle, seletedTodo.finished)
+        toggleEditModel(seletedTodo.id)
     }
 
     const userInputHandler = (e) => {
