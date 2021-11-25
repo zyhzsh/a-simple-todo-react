@@ -76,7 +76,6 @@ const EditTodo = () => {
                     <form>
                         <TextField  autoFocus
                             margin="dense"                
-                            fullWidth ="false"
                             onChange={userInputHandler}
                             variant="standard" value={todoTitle} />
                         <IconButton onClick={updateHandler}><CheckIcon/></IconButton>

@@ -59,6 +59,11 @@ overflow:auto;
       rgba(255, 255, 255, 0.3)
     );
   }
+
+  @media (max-width: 768px) {
+    width: auto;
+  }
+
 `;
 
 

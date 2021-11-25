@@ -42,10 +42,6 @@ const StyledToDosWrapper = styled.div`
     display: grid;
     grid-template-columns:auto auto auto auto;
     border: black 1px solid;
-    .Checkbox{
-        width: 50px;
-        align-self: center;
-    }
     p{
         font-size: 20px;
         min-width: 300px;
@@ -55,7 +51,15 @@ const StyledToDosWrapper = styled.div`
     p,input,button{
         display: inline-block;
     }
+    @media (max-width: 768px) {
+        width: 300px;
+        p{
+            align-self: center;
+            font-size: 10px;
+            min-width: 80px;
+        }
 
+  }
    // background: #aa4b6b;  /* fallback for old browsers */
    // background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);  /* Chrome 10-25, Safari 5.1-6 */
  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
