@@ -1,17 +1,31 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import styled from "styled-components";
+import { ToDoListContext } from '../context/ToDoListContext';
 
 const Todo = ({props}) => {
+    const id = props.id;
     const title= props.title;
-    const category= props.category;
-    const finished= props.finished.toString();
+    const finished= props.finished;
+
+    const {removeTodo,updateTodo,toggleEditModel} = useContext(ToDoListContext);
+
+    const updateTodoHandler=()=>{
+        updateTodo(id,title,!finished)
+    }
+
+    const deleteHandler=()=> {
+        removeTodo(id)
+    }
+    
+    const editTodoHandler=()=>{
+        toggleEditModel(id)
+    }
     return (
         <StyledToDosWrapper>
             <h2>{title}</h2>
-            <div>{category}</div>
-            <div>{finished}</div>
-            <button>Edit</button>
-            <button>Delete</button>
+            <input type="checkbox" onChange={updateTodoHandler}></input>
+            <button onClick = {editTodoHandler}>Edit</button>
+            <button onClick = {deleteHandler}>Delete</button>
         </StyledToDosWrapper>
     )
 }
