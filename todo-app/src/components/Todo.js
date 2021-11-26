@@ -27,7 +27,7 @@ const Todo = ({ props }) => {
     return (
 
         <StyledToDosWrapper>
-            <Checkbox color="default" onChange={updateTodoHandler}/>
+            <Checkbox checked={finished} color="default" onChange={updateTodoHandler}/>
             {finished ? <p><del>{title}</del></p> : <p>{title}</p>}
             <IconButton onClick={editTodoHandler}><ModeEditOutlinedIcon/></IconButton>
             <IconButton onClick={deleteHandler}><HighlightOffIcon/></IconButton>
